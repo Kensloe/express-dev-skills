@@ -7,10 +7,32 @@ const skills = [
   module.exports = {
     getAll,
     getOne,
+    deleteOne,
+    create,
+    update,
   };
 
+  function update(id, newInfo) {
+    id = parseInt(id);
+    const skill = skills.find((skill) => skill.id === id);
+    Object.assign(skill, newInfo);
+
+  }
+
+  function create(newSkill) {
+    newSkill.id = Date.now() % 1000000;
+    newSkill.done = false;
+    skills.push(newSkill);
+  }
+
+  function deleteOne(id) {
+    id = parseInt(id);
+    const index = skills.findIndex((skill) => skill.id === id);
+    skills.splice(index, 1);
+
+  }
     function getOne(id) {
-      id = parseInt(id)
+      id = parseInt(id);
       return skills.find((skill) => skill.id === id);
     }
 

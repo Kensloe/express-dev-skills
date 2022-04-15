@@ -1,23 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel='stylesheet' href='/stylesheets/style.css' />
-  <title>Skills or no Skills</title>
-</head>
-<body>
-  <h1>Skills</h1>
-  <ul>
-    <% skills.forEach(function(t) { %>
-      <li>
-        <a href="/skills/<%= t.id %>"><%= t.skill %></a>
-          -
-        <%= t.done ? 'done' : 'not done' %>
-      </li>
-      <% }); %>
-    </ul>
-    <a href="/skills/new">Add To-Do</a>
-</body>
-</html>
+<%- include('../partials/header') %>
+
+<h3>Skills as of <%= time.toLocaleString() %></h3>
+<ul>
+  <% skills.forEach(function(t) { %>
+    <li>
+      <!-- query parameters come after a "?" in the url
+           They are a way to provide extra info to the server
+           Similar to route params, except they do not influence
+           how a route is matched
+      -->
+      <form action="/skills/<%= t.id %>?_method=DELETE"
+        class="delete-form"
+        method="POST"
+      >
+        <button type="submit">X</button>
+      </form>
+      <a href="/skills/<%= t.id %>"><%= t.skill %></a>
+      - 
+      <%= t.done ? 'done' : 'not done' %>
+    </li>
+  <% }); %>
+</ul>
+<a href="/skills/new">Add Skill</a>
+
+<%- include('../partials/footer') %>
